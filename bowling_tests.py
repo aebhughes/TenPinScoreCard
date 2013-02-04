@@ -57,7 +57,10 @@ class Expected(unittest.TestCase):
         player = bowler.BowlScore()
         frame_no = 1
         for card in self.KnownValues:
-            ball1, ball2, score = card[-1]
+            if type(card) == list:
+                ball1, ball2, score = card
+            else:
+                ball1, ball2, score = card[-1]
             player.Go(ball1, ball2)
             self.assertEqual(player.ScoreCard, card)
             if frame_no < 11:
@@ -68,7 +71,10 @@ class Expected(unittest.TestCase):
     def testTooMany(self):
         player = bowler.BowlScore()
         for card in self.KnownValues:
-            ball1, ball2, score = card[-1]
+            if type(card) == list:
+                ball1, ball2, score = card
+            else:
+                ball1, ball2, score = card[-1]
             player.Go(ball1, ball2)
         self.assertEqual(player.Message, 'Game over')
         self.assertEqual(player.FrameNo, 10)
@@ -81,9 +87,19 @@ class Expected(unittest.TestCase):
 
     def testInvalidInput(self):
         player = bowler.BowlScore()
-        self.assertNone(player.Go(5,6))
+        self.assertIsNone(player.Go(5,6))
         self.assertEqual(player.Message, 'INVALID: 11 pins recorded')
         self.assertEqual(player.FrameNo, 1)
-        self.assertNone(player.Go(15,6))
+        self.assertIsNone(player.Go(15,6))
         self.assertEqual(player.Message, 'INVALID: 21 pins recorded')
         self.assertEqual(player.FrameNo, 1)
+
+
+    def testBasics(self):
+        player = bowler.BowlScore()
+        self.assertEqual(player.FrameNo, 0)
+        self.assertEqual(player.ScoreCard, [])
+        self.assertEqual(player.Message, 'Begin play!')
+
+if __name__ == '__main__':
+    unittest.main()
