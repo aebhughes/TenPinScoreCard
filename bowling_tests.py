@@ -97,7 +97,7 @@ class Expected(unittest.TestCase):
 
     def testBasics(self):
         player = bowler.BowlScore()
-        self.assertEqual(player.FrameNo, 0)
+        self.assertEqual(player.FrameNo, 1)
         self.assertEqual(player.ScoreCard, [])
         self.assertEqual(player.Message, 'Begin play!')
 

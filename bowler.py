@@ -37,7 +37,7 @@ class BowlScore(object):
 
     def __init__(self):
         self.ScoreCard = []
-        self.FrameNo = 0
+        self.FrameNo = 1
         self.Message = 'Begin play!'
 
 
@@ -46,4 +46,8 @@ class BowlScore(object):
 
 
     def Go(self, ball1, ball2):
-        pass
+        score = 0
+        for parm in [ball1, 
+        if ball1 + ball2 > 10:
+            self.Message = 'INVALID: %d pins recorded' % (ball1 + ball2)
+            return
